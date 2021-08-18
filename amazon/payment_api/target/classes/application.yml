@@ -1,0 +1,31 @@
+
+server:
+  port: 8999
+ 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  application:
+    name: payment_api
+  cloud:
+    gateway:
+      routes:
+      - id: order_service
+        uri: http://localhost:9003/
+        predicates:
+        - Path=/order/**
+      - id: contact_service
+        uri: http://localhost:9004/
+        predicates:
+        - Path=/payment/**
+      - id: contact_service
+        uri: http://localhost:9002/
+        predicates:
+        - Path=/contact/**
+      - id: user_service
+        uri: http://localhost:9001/
+        predicates:
+        - Path=/user/**
